@@ -1,0 +1,18 @@
+# IBM Bob Shell - ReServe AI Project Rules
+
+## Tech Stack & Architecture
+- **Framework**: Next.js 14 (App Router) with TypeScript
+- **Database**: PostgreSQL / SQLite via Prisma ORM (`@prisma/client`)
+- **Styling**: Tailwind CSS with `clsx` and `tailwind-merge`
+- **AI Infrastructure**: Custom AI agents located in `src/lib/ai/`
+
+## Coding Standards & Conventions
+1. **Type Safety**:
+   - Avoid `any` types. Always import Prisma types (e.g., `Organization`, `SurplusRequest`, `PickupTask`) or define explicit interfaces.
+2. **Data Integrity**:
+   - Do not use hardcoded fallback values for core metrics or contact details. Return real database query results.
+3. **AI Agent Design**:
+   - Keep AI helpers in `src/lib/ai/` self-contained and modular.
+   - Maintain deterministic fallback scores when inputs are missing or incomplete.
+4. **API Routes**:
+   - Next.js route handlers reside in `src/app/api/`. Use `NextResponse.json()` for structured responses.

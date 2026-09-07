@@ -1,0 +1,15 @@
+{
+  "session": {
+    "defaultMode": "code",
+    "maxTurns": 50,
+    "mcp": true
+  },
+  "logging": {
+    "logLevel": "info"
+  },
+  "project": {
+    "name": "reserve-ai-campus-food-rescue",
+    "framework": "Next.js",
+    "language": "TypeScript"
+  }
+}

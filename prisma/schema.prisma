@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String        @id @default(uuid())
+  name           String
+  email          String        @unique
+  passwordHash   String
+  role           String        // ADMIN, CAFETERIA_MANAGER, EVENT_MANAGER, RECIPIENT_ORGANIZATION
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  events             Event[]
+  surplusRequests    SurplusRequest[]
+  confirmedPickups   PickupTask[]
+}
+
+model Organization {
+  id                 String   @id @default(uuid())
+  name               String
+  type               String   // CAMPUS_CAFETERIA, COMMUNITY_NGO, SHELTER, FOOD_BANK, EVENT_HOST
+  verificationStatus String   @default("PENDING") // PENDING, VERIFIED, REJECTED
+  serviceArea        String
+  maxCapacityMeals   Int
+  acceptedCategories String   // JSON array string e.g. '["VEGETARIAN", "VEGAN"]'
+  pickupAvailability String   // JSON operating hours
+  contactName        String
+  contactPhone       String
+  locationAddress    String
+  latitude           Float?
+  longitude          Float?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  users                User[]
+  recommendations      MatchRecommendation[]
+  assignedPickupTasks  PickupTask[]
+}
+
+model Event {
+  id                 String   @id @default(uuid())
+  name               String
+  organizerId        String
+  organizer          User     @relation(fields: [organizerId], references: [id])
+  department         String
+  eventDate          DateTime
+  startTime          String
+  endTime            String
+  location           String
+  expectedAttendance Int
+  mealsPrepared      Int?
+  foodProvider       String
+  createdAt          DateTime @default(now())
+
+  surplusRequests    SurplusRequest[]
+}
+
+model SurplusRequest {
+  id                 String   @id @default(uuid())
+  sourceType         String   // EVENT, CAFETERIA
+  sourceId           String?
+  event              Event?   @relation(fields: [sourceId], references: [id])
+  reporterId         String
+  reporter           User     @relation(fields: [reporterId], references: [id])
+  foodType           String
+  quantityPortions   Int
+  estimatedWeightKg  Float
+  availableFrom      DateTime
+  pickupDeadline     DateTime
+  pickupLocation     String
+  contactPhone       String
+  notes              String?
+  urgencyLevel       String   @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  status             String   @default("PENDING") // PENDING, VALIDATING, MATCHING, MATCH_FOUND, AWAITING_ACCEPTANCE, ACCEPTED, PICKUP_ASSIGNED, PICKED_UP, COMPLETED, EXPIRED, CANCELLED
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  recommendations    MatchRecommendation[]
+  pickupTask         PickupTask?
+  impactLog          ImpactLog?
+}
+
+model MatchRecommendation {
+  id                 String         @id @default(uuid())
+  surplusRequestId   String
+  surplusRequest     SurplusRequest @relation(fields: [surplusRequestId], references: [id])
+  organizationId     String
+  organization       Organization   @relation(fields: [organizationId], references: [id])
+  matchScore         Float
+  scoreBreakdown     String         // JSON object string
+  explanation        String
+  status             String         @default("PROPOSED") // PROPOSED, SELECTED, ACCEPTED, REJECTED
+  createdAt          DateTime       @default(now())
+}
+
+model PickupTask {
+  id                 String         @id @default(uuid())
+  surplusRequestId   String         @unique
+  surplusRequest     SurplusRequest @relation(fields: [surplusRequestId], references: [id])
+  assignedOrgId      String
+  assignedOrg        Organization   @relation(fields: [assignedOrgId], references: [id])
+  pickupDeadline     DateTime
+  status             String         @default("ASSIGNED") // ASSIGNED, IN_TRANSIT, ARRIVED, COMPLETED, FAILED
+  confirmedByUserId  String?
+  confirmedByUser    User?          @relation(fields: [confirmedByUserId], references: [id])
+  completedAt        DateTime?
+  notes              String?
+}
+
+model CafeteriaDemandLog {
+  id                      String   @id @default(uuid())
+  date                    DateTime
+  mealType                String   // BREAKFAST, LUNCH, DINNER, SNACKS
+  expectedAttendance      Int
+  academicCalendarType    String   // REGULAR_CLASS, REGULAR_EXAM, HOLIDAY
+  dayOfWeek               Int
+  predictedConsumption    Int
+  recommendedPreparation  Int
+  actualPrepared          Int?
+  actualConsumed          Int?
+  actualSurplus           Int?
+  maeScore                Float?
+  createdAt               DateTime @default(now())
+}
+
+model ImpactLog {
+  id                    String         @id @default(uuid())
+  surplusRequestId      String         @unique
+  surplusRequest        SurplusRequest @relation(fields: [surplusRequestId], references: [id])
+  mealsRescued          Int
+  weightKgPrevented     Float
+  disposalCostSavedUsd  Float
+  co2EmissionsAvoidedKg Float
+  recordedAt            DateTime       @default(now())
+}
+
+model KnowledgeDocument {
+  id         String   @id @default(uuid())
+  title      String
+  category   String   // Food Safety, SDG 12, Campus Best Practices
+  content    String
+  sourceUrl  String?
+  createdAt  DateTime @default(now())
+}
+
+model Notification {
+  id               String   @id @default(uuid())
+  type             String   // MATCH_PROPOSED, MATCH_ACCEPTED, MATCH_REJECTED, PICKUP_ASSIGNED, STATUS_UPDATE, RESCUE_COMPLETED, EXPIRATION_WARNING
+  title            String
+  message          String
+  targetRole       String?  // null = ALL roles
+  surplusRequestId String?
+  isRead           Boolean  @default(false)
+  createdAt        DateTime @default(now())
+}
