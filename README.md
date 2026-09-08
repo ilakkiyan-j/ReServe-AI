@@ -26,7 +26,7 @@
 ## 🚀 Live Demo & Presentation
 
 * **Live Demo URL**: [https://re-serve-ai.vercel.app](https://re-serve-ai.vercel.app)
-* **Master Presentation Deck (.pptx)**: [`docs/ReServe-AI-Rescue-More-Waste-Less.pptx`](docs/ReServe-AI-Rescue-More-Waste-Less.pptx)
+* **Master Presentation Deck (.pptx)**: [`docs/ReServe-AI-Rescue-More-Waste-Less.pptx`](docs/ReServe-AI-Rescue-More-Waste-Less.pptx) | [Direct Web Download](https://re-serve-ai.vercel.app/ReServe-AI-Rescue-More-Waste-Less.pptx)
 * **Cloud Database**: Neon Postgres (`neondb`)
 * **GitHub Repository**: [https://github.com/ilakkiyan-j/ReServe-AI.git](https://github.com/ilakkiyan-j/ReServe-AI.git)
 

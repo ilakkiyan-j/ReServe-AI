@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Leaf, Sun, Moon, LogIn, LogOut, ShieldCheck, User } from "lucide-react";
+import { Leaf, Sun, Moon, LogIn, LogOut, ShieldCheck, User, Presentation, Download } from "lucide-react";
 import { UserRole, UserSession } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { AuthModal } from "@/components/auth/AuthModal";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
+import { PresentationModal } from "@/components/presentation/PresentationModal";
 
 interface NavbarProps {
   currentRole: UserRole;
@@ -16,6 +17,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ currentRole, onRoleChange, onGoToLanding }) => {
   const [isDark, setIsDark] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isPptModalOpen, setIsPptModalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState<UserSession | null>(null);
 
   useEffect(() => {
@@ -90,6 +92,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, onRoleChange, onGoT
               </button>
             )}
 
+            {/* PPT Presentation Button */}
+            <button
+              onClick={() => setIsPptModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-500/15 hover:bg-orange-200 dark:hover:bg-orange-500/25 border border-orange-200 dark:border-orange-500/30 rounded-lg transition-colors shadow-2xs"
+              title="View Master Presentation Deck (.pptx)"
+            >
+              <Presentation className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
+              <span className="hidden sm:inline">Master Deck (.pptx)</span>
+            </button>
+
             {currentUser ? (
               <div className="flex items-center gap-3 bg-slate-100 dark:bg-slate-800/80 px-3.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-2">
@@ -149,6 +161,11 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRole, onRoleChange, onGoT
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
         onLoginSuccess={handleAuthSuccess}
+      />
+
+      <PresentationModal
+        isOpen={isPptModalOpen}
+        onClose={() => setIsPptModalOpen(false)}
       />
     </>
   );

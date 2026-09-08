@@ -62,13 +62,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp, impactMet
               </button>
 
               <a
-                href="docs/ReServe-AI-Rescue-More-Waste-Less.pptx"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/ReServe-AI-Rescue-More-Waste-Less.pptx"
+                download="ReServe-AI-Rescue-More-Waste-Less.pptx"
                 className="w-full sm:w-auto px-6 py-4 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-600 font-semibold text-sm shadow-sm hover:shadow transition-all flex items-center justify-center gap-2"
               >
                 <FileText className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                View Master Deck (.pptx)
+                Download Master Deck (.pptx)
               </a>
             </div>
 
