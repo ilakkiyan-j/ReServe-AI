@@ -6,9 +6,9 @@
   :root {
     --bg-main: #f8fafc;
     --text-main: #0f172a;
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --card-border: rgba(226, 232, 240, 0.8);
-    --nav-bg: rgba(255, 255, 255, 0.9);
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --nav-bg: rgba(255, 255, 255, 0.92);
   }
 
   .dark {
@@ -36,18 +36,28 @@
 }
 
 .gradient-heading {
-  background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #0d9488 100%);
+  background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .gradient-heading {
+  background: linear-gradient(135deg, #34d399 0%, #14b8a6 50%, #60a5fa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .hover-glow {
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-glow:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.2);
+  box-shadow: 0 12px 24px -6px rgba(16, 185, 129, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .hover-glow:hover {
+  box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.25);
 }
 
 /* Custom Scrollbar */
@@ -61,12 +71,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(148, 163, 184, 0.4);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: rgba(148, 163, 184, 0.6);
 }
 
 /* Toast slide-in animation */
@@ -89,10 +99,17 @@
 
 /* Skeleton pulse tweak */
 .skeleton {
+  background: linear-gradient(90deg, rgba(226,232,240,0.8) 25%, rgba(241,245,249,0.9) 50%, rgba(226,232,240,0.8) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.dark .skeleton {
   background: linear-gradient(90deg, rgba(30,41,59,0.6) 25%, rgba(51,65,85,0.5) 50%, rgba(30,41,59,0.6) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
 }
+
 @keyframes shimmer {
   0%   { background-position: 200% 0; }
   100% { background-position: -200% 0; }

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Sidebar } from "@/components/layout/Sidebar";
+import { LandingPage } from "@/components/landing/LandingPage";
 import { UserRole } from "@/types";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -30,7 +31,7 @@ import { SustainabilityMetrics } from "@/lib/ai/impactAgent";
 
 // ─── Skeleton helpers ────────────────────────────────────────────────────────
 const SkeletonCard = () => (
-  <div className="glass-panel rounded-xl p-6 border border-slate-800 animate-pulse">
+  <div className="glass-panel rounded-xl p-6 border border-slate-200 dark:border-slate-800 animate-pulse">
     <div className="skeleton h-3 w-1/3 rounded mb-3" />
     <div className="skeleton h-8 w-1/2 rounded mb-2" />
     <div className="skeleton h-2 w-2/3 rounded" />
@@ -42,27 +43,28 @@ const roleWelcome: Record<UserRole, { title: string; subtitle: string; color: st
   ADMIN: {
     title: "Campus Admin Dashboard",
     subtitle: "Monitor all surplus activity, verify organizations, and review system-wide impact.",
-    color: "from-purple-900/40 via-slate-900/60 to-slate-900/80",
+    color: "from-purple-600/10 via-slate-100 to-white dark:from-purple-900/40 dark:via-slate-900/60 dark:to-slate-900/80 border-purple-200 dark:border-purple-800/30",
   },
   CAFETERIA_MANAGER: {
     title: "Cafeteria Manager Dashboard",
     subtitle: "View demand forecasts, log actual consumption, and prevent over-preparation waste.",
-    color: "from-emerald-900/40 via-slate-900/60 to-slate-900/80",
+    color: "from-emerald-600/10 via-slate-100 to-white dark:from-emerald-900/40 dark:via-slate-900/60 dark:to-slate-900/80 border-emerald-200 dark:border-emerald-800/30",
   },
   EVENT_MANAGER: {
     title: "Event Manager Dashboard",
     subtitle: "Register events, report surplus food via AI text intake, and track redistribution.",
-    color: "from-sky-900/40 via-slate-900/60 to-slate-900/80",
+    color: "from-sky-600/10 via-slate-100 to-white dark:from-sky-900/40 dark:via-slate-900/60 dark:to-slate-900/80 border-sky-200 dark:border-sky-800/30",
   },
   RECIPIENT_ORGANIZATION: {
     title: "Recipient Organization Dashboard",
     subtitle: "Review incoming surplus matches, accept requests, and confirm pickup completion.",
-    color: "from-amber-900/40 via-slate-900/60 to-slate-900/80",
+    color: "from-amber-600/10 via-slate-100 to-white dark:from-amber-900/40 dark:via-slate-900/60 dark:to-slate-900/80 border-amber-200 dark:border-amber-800/30",
   },
 };
 
 export default function HomePage() {
   const { toast } = useToast();
+  const [viewMode, setViewMode] = useState<"landing" | "app">("landing");
   const [currentRole, setCurrentRole] = useState<UserRole>("EVENT_MANAGER");
   const [activeTab, setActiveTab] = useState<string>("overview");
 
@@ -137,11 +139,37 @@ export default function HomePage() {
     setIsSurplusModalOpen(true);
   };
 
+  const handleLaunchApp = (presetRole?: UserRole) => {
+    if (presetRole) setCurrentRole(presetRole);
+    setViewMode("app");
+  };
+
   const welcome = roleWelcome[currentRole];
 
+  if (viewMode === "landing") {
+    return (
+      <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#090d16]">
+        <Navbar
+          currentRole={currentRole}
+          onRoleChange={setCurrentRole}
+          onGoToLanding={() => setViewMode("landing")}
+        />
+        <LandingPage
+          onLaunchApp={handleLaunchApp}
+          impactMetrics={impactMetrics}
+        />
+        <RagAssistantDrawer />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#090d16]">
-      <Navbar currentRole={currentRole} onRoleChange={setCurrentRole} />
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-[#090d16] text-slate-900 dark:text-slate-100">
+      <Navbar
+        currentRole={currentRole}
+        onRoleChange={setCurrentRole}
+        onGoToLanding={() => setViewMode("landing")}
+      />
 
       <div className="flex flex-1 overflow-hidden">
         <Sidebar currentRole={currentRole} activeTab={activeTab} onTabChange={setActiveTab} />
@@ -166,19 +194,19 @@ export default function HomePage() {
           {activeTab === "rag" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-bold text-white tracking-tight">AI Knowledge Assistant</h2>
-                <p className="text-sm text-slate-400 mt-1">
-                  Ask questions grounded in the verified campus food safety, SDG 12 policy, and onboarding knowledge base.
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">AI Knowledge Assistant</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                  Ask questions grounded in verified campus food safety rules, SDG 12 policies, and system guides.
                 </p>
               </div>
               <Card className="flex items-center gap-4 p-6">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
                   <BookOpen className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-100">RAG Assistant is available in the bottom-right corner</p>
-                  <p className="text-sm text-slate-400 mt-0.5">
-                    Click the <span className="text-purple-400 font-medium">AI Assistant</span> button at the bottom-right of the screen to open the knowledge Q&A drawer.
+                  <p className="font-semibold text-slate-900 dark:text-slate-100">RAG Assistant is ready</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                    Click the <span className="text-purple-600 dark:text-purple-400 font-medium">AI Assistant</span> button at the bottom-right of the screen to open the Q&A drawer.
                   </p>
                 </div>
               </Card>
@@ -189,13 +217,13 @@ export default function HomePage() {
           {activeTab === "admin" && (
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl font-bold text-white tracking-tight">Recipient Organization Registry</h2>
-                <p className="text-sm text-slate-400 mt-1">Manage and verify recipient organizations. Only VERIFIED organizations are eligible for surplus matching.</p>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Recipient Organization Registry</h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Manage and verify recipient organizations. Only VERIFIED organizations are eligible for surplus matching.</p>
               </div>
               <Card>
-                <div className="flex items-center gap-3 p-2 text-sm text-slate-400">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                  Recipient organization management is handled via the database seed and admin API. Use <code className="text-brand-400 bg-slate-800 px-1.5 py-0.5 rounded text-xs">prisma studio</code> or the <code className="text-brand-400 bg-slate-800 px-1.5 py-0.5 rounded text-xs">ADMIN</code> role API endpoints to verify organizations.
+                <div className="flex items-center gap-3 p-2 text-sm text-slate-600 dark:text-slate-400">
+                  <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                  Recipient organization management is handled via the database seed and admin API. Use <code className="text-emerald-700 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-xs">prisma studio</code> or the <code className="text-emerald-700 dark:text-brand-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-xs">ADMIN</code> role API endpoints to verify organizations.
                 </div>
               </Card>
             </div>
@@ -206,17 +234,17 @@ export default function HomePage() {
             <div className="space-y-8 max-w-6xl">
 
               {/* Welcome Banner */}
-              <div className={`p-6 rounded-2xl bg-gradient-to-r ${welcome.color} border border-slate-700/50 shadow-lg`}>
+              <div className={`p-6 rounded-2xl bg-gradient-to-r ${welcome.color} border shadow-xs`}>
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <Badge variant="success">SDG 12 — Responsible Consumption</Badge>
                       <Badge variant="purple">SDG 2 — Zero Hunger</Badge>
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                    <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                       {welcome.title}
                     </h1>
-                    <p className="text-sm text-slate-300 mt-1 max-w-xl">{welcome.subtitle}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-xl">{welcome.subtitle}</p>
                   </div>
                   <div className="flex items-center gap-3 flex-wrap">
                     {(currentRole === "EVENT_MANAGER" || currentRole === "ADMIN") && (
@@ -416,10 +444,10 @@ export default function HomePage() {
               )}
 
               {/* SDG callout */}
-              <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/30 flex items-start gap-3">
-                <Leaf className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <div className="text-xs text-slate-300">
-                  <span className="font-semibold text-emerald-300">UN SDG 12 Aligned: </span>
+              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/30 flex items-start gap-3">
+                <Leaf className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <div className="text-xs text-slate-700 dark:text-slate-300">
+                  <span className="font-semibold text-emerald-800 dark:text-emerald-300">UN SDG 12 Aligned: </span>
                   Every surplus request redirected from disposal contributes towards halving campus food waste by 2030.
                   Environmental metrics are transparent estimates per UNEP/FAO methodology (2.5 kg CO₂ per kg food).
                 </div>

@@ -4,7 +4,7 @@
 > *Developed for the **1M1B – IBM SkillsBuild & AICTE AI for Sustainability Virtual Internship (July–September 2026)**.*  
 > *Aligned with United Nations Sustainable Development Goals **SDG 12** (Responsible Consumption & Production), **SDG 2** (Zero Hunger), and **SDG 11** (Sustainable Cities & Communities).*
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-success?style=for-the-badge&logo=vercel)](https://reserve-ai.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-success?style=for-the-badge&logo=vercel)](https://re-serve-ai.vercel.app)
 [![Database](https://img.shields.io/badge/Database-Neon%20Postgres-blue?style=for-the-badge&logo=postgresql)](https://neon.tech)
 [![Framework](https://img.shields.io/badge/Framework-Next.js%2014-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
 [![Presentation](https://img.shields.io/badge/Presentation-ReServe--AI.pptx-orange?style=for-the-badge&logo=microsoftpowerpoint)](docs/ReServe-AI-Rescue-More-Waste-Less.pptx)
@@ -23,122 +23,64 @@
 
 ---
 
-## 🚀 Live Demo & Deployment
+## 🚀 Live Demo & Presentation
 
-* **Live Demo URL**: [https://reserve-ai.vercel.app](https://reserve-ai.vercel.app) *(Deploy to Vercel to activate link)*
+* **Live Demo URL**: [https://re-serve-ai.vercel.app](https://re-serve-ai.vercel.app)
+* **Master Presentation Deck (.pptx)**: [`docs/ReServe-AI-Rescue-More-Waste-Less.pptx`](docs/ReServe-AI-Rescue-More-Waste-Less.pptx)
 * **Cloud Database**: Neon Postgres (`neondb`)
 * **GitHub Repository**: [https://github.com/ilakkiyan-j/ReServe-AI.git](https://github.com/ilakkiyan-j/ReServe-AI.git)
 
-## 📸 Master Presentation Slide Deck (16 Slides)
+---
 
-> 📁 **Presentation File**: [`docs/ReServe-AI-Rescue-More-Waste-Less.pptx`](docs/ReServe-AI-Rescue-More-Waste-Less.pptx)  
+## 🌟 Problem Statement & UN SDG Alignment
 
-<details open>
-<summary><b>▶️ Click here to expand / collapse the 16-Slide Presentation Deck</b></summary>
+### Problem Statement
+University campuses generate significant food waste daily through **over-preparation in cafeterias** and **unavoidable leftovers from campus events**, while nearby shelters and community kitchens experience food shortages.  
+> *"How might we use AI to predict cafeteria demand and match surplus event food with verified local rescue organizations so that campus food redistribution becomes sustainable, transparent, and efficient?"*
 
-<br>
-
-### 🎴 Slide 1: Title & Project Overview
-![Slide 1: Title & Project Overview](docs/slides/Slide1.JPG)
+### Alignment with UN Sustainable Development Goals
+* 🎯 **Primary SDG 12: Responsible Consumption & Production** (Target 12.3: Halve global per capita food waste by 2030).
+* 🍲 **SDG 2: Zero Hunger** (Target 2.1: Universal access to safe, nutritious food).
+* 🏙️ **SDG 11: Sustainable Cities & Communities** (Target 11.6: Reduce municipal waste streams).
 
 ---
 
-### 🎴 Slide 2: The Problem — Campus Food Waste at Scale
-![Slide 2: The Problem](docs/slides/Slide2.JPG)
+## 🤖 Core AI Solution & Architecture
+
+ReServe AI operates across two complementary modules:
+
+![ReServe AI Dual-Mode Architecture](docs/diagrams/reserve_ai_architecture.png)
+
+### 1. 🛡️ PREVENT Mode (Cafeteria Demand Forecasting)
+* **Demand Prediction Engine (`demandPredictionAgent.ts`)**: Analyzes meal types, expected student headcount, day of week, and academic calendar status (`REGULAR_CLASS`, `REGULAR_EXAM`, `HOLIDAY`).
+* **5% Safety Margin Recommendation**: Recommends preparation quantities with a strict 5% buffer to prevent shortages while minimizing over-cooking.
+* **Accuracy Feedback Loop**: Tracks Mean Absolute Error (MAE) and RMSE against actual consumption.
+
+### 2. 🚚 RESCUE Mode (Leftover Redistribution)
+* **Natural Language Surplus Intake (`surplusExtractorAgent.ts`)**: Converts unformatted text notices (e.g., *"60 veg meal boxes remaining at Seminar Hall until 8 PM"*) into structured donor listings.
+* **Multi-Criteria Recipient Matching (`matchingAgent.ts`)**: Ranks verified recipient NGOs using a 4-factor scoring matrix:
+  1. **Capacity Match (30%)**: Matches food quantity to recipient capacity.
+  2. **Proximity Score (30%)**: Haversine distance calculation between donor and recipient.
+  3. **Deadline Alignment (20%)**: Ensures pickup finishes before food expiration.
+  4. **Historical Reliability (20%)**: Factors past completed pickup rates.
+* **State Machine Coordination (`coordinationAgent.ts`)**: Manages lifecycle (`ASSIGNED` ➔ `IN_TRANSIT` ➔ `ARRIVED` ➔ `COMPLETED`).
+* **Food Safety RAG Assistant (`ragAssistantAgent.ts`)**: Grounded in FDA food handling guidelines (4-hour rule, safe holding temps).
 
 ---
 
-### 🎴 Slide 3: Central Question & Design Thinking Framework
-![Slide 3: Central Question](docs/slides/Slide3.JPG)
+## ⚖️ Responsible AI & Sustainability Impact
 
----
+### Responsible AI Considerations (IBM AI Ethics Framework)
+* **Fairness**: Deterministic, unbiased 4-factor scoring matrix for recipient matching.
+* **Transparency & Explainability**: 0–100 match score breakdown displayed for every proposal.
+* **Human-in-the-Loop**: NLP-extracted listings require manual verification before publishing.
+* **Zero Hallucinations**: Only verified NGOs (`verificationStatus === "VERIFIED"`) receive allocations.
 
-### 🎴 Slide 4: UN Sustainable Development Goals Alignment
-![Slide 4: UN Sustainable Development Goals](docs/slides/Slide4.JPG)
-
----
-
-### 🎴 Slide 5: The Solution — Dual-Mode AI Platform
-![Slide 5: Dual-Mode AI Solution](docs/slides/Slide5.JPG)
-
----
-
-### 🎴 Slide 6: PREVENT Mode — Demand Forecasting Engine
-![Slide 6: PREVENT Mode](docs/slides/Slide6.JPG)
-
----
-
-### 🎴 Slide 7: RESCUE Mode — Intelligent NLP & NGO Matching Engine
-![Slide 7: RESCUE Mode](docs/slides/Slide7.JPG)
-
----
-
-### 🎴 Slide 8: Decoupled AI Agent Architecture
-![Slide 8: AI Architecture & Agents](docs/slides/Slide8.JPG)
-
----
-
-### 🎴 Slide 9: Mathematical Formulas & Matching Matrix
-![Slide 9: Demand Prediction & Matching Formulas](docs/slides/Slide9.JPG)
-
----
-
-### 🎴 Slide 10: Technical Implementation & Stack
-![Slide 10: Technical Stack](docs/slides/Slide10.JPG)
-
----
-
-### 🎴 Slide 11: End-to-End System Data Flow
-![Slide 11: System Data Flow](docs/slides/Slide11.JPG)
-
----
-
-### 🎴 Slide 12: IBM Responsible AI & Ethical Framework
-![Slide 12: Responsible AI Evaluation](docs/slides/Slide12.JPG)
-
----
-
-### 🎴 Slide 13: Expected Sustainability Impact Metrics
-![Slide 13: Expected Impact](docs/slides/Slide13.JPG)
-
----
-
-### 🎴 Slide 14: Stakeholder Benefits Matrix
-![Slide 14: Stakeholder Benefits](docs/slides/Slide14.JPG)
-
----
-
-### 🎴 Slide 15: Conclusion & Circular Campus Ecosystem
-![Slide 15: Conclusion & Future Outlook](docs/slides/Slide15.JPG)
-
----
-
-### 🎴 Slide 16: Thank You & Contact Information
-![Slide 16: Thank You](docs/slides/Slide16.JPG)
-
-</details>
-
----
-
-## 📑 1M1B Internship Deliverables
-
-This repository contains complete documentation and deliverables for the **1M1B – IBM SkillsBuild AI + Sustainability Virtual Internship**:
-
-| Deliverable | Description | File Link |
-| :--- | :--- | :--- |
-| **Deliverable 1** | Project Description, SDG Alignment, Problem Statement & Target Users | [01_project_description.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/01_project_description.md) |
-| **Deliverable 2** | Prototype Architecture, AI Agent Workflows, Prompt & RAG Demos | [02_prototype_and_agent_architecture.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/02_prototype_and_agent_architecture.md) |
-| **Deliverable 3** | Sustainability Impact Statement & Responsible AI Audit | [03_impact_statement_and_responsible_ai.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/03_impact_statement_and_responsible_ai.md) |
-| **Deliverable 4** | Master Presentation Deck (.pptx & Markdown Package) | [04_final_submission_package.md](docs/deliverables/04_final_submission_package.md) & [ReServe-AI-Rescue-More-Waste-Less.pptx](docs/ReServe-AI-Rescue-More-Waste-Less.pptx) |
-
----
-
-## 🌟 Overview
-
-**ReServe AI** is a full-stack, AI-powered food rescue and sustainability platform designed for university campuses, cafeterias, and institutional dining facilities. It tackles food waste across two complementary operational modes:
-
-1. 🛡️ **PREVENT Mode**: Statistical demand forecasting for cafeteria dining halls to prevent over-preparation waste before food is cooked.
-2. 🚚 **RESCUE Mode**: Natural language intake and multi-criteria AI recipient matching to redistribute unavoidable event leftovers to verified local NGOs and shelters.
+### Expected Annual Campus Impact
+* 🍲 **15,000+ Nutritious Meals Rescued**
+* 🌱 **6.2+ Metric Tons CO₂ Emissions Avoided**
+* 💰 **$15,000+ Saved in Waste Disposal Fees**
+* 📉 **18% Average Reduction in Cafeteria Over-Preparation**
 
 ---
 
