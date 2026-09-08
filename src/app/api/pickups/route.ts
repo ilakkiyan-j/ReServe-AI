@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { successResponse, errorResponse } from "@/lib/utils/apiResponse";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   try {
     const pickups = await prisma.pickupTask.findMany({

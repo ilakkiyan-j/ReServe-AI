@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db/prisma";
 import { successResponse, errorResponse } from "@/lib/utils/apiResponse";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const docs = await prisma.knowledgeDocument.findMany({

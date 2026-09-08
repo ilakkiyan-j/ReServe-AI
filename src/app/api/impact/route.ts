@@ -1,6 +1,8 @@
 import { calculateSustainabilityImpact } from "@/lib/ai/impactAgent";
 import { successResponse, errorResponse } from "@/lib/utils/apiResponse";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const metrics = await calculateSustainabilityImpact();

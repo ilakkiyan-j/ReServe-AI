@@ -4,7 +4,7 @@ import React from "react";
 import { UserRole } from "@/types";
 import {
   LayoutDashboard, Calendar, Utensils, Sparkles,
-  Truck, BarChart3, BookOpen, ShieldCheck, ChevronRight,
+  Truck, BarChart3, BookOpen, ShieldCheck, ChevronRight, Presentation
 } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -69,6 +69,14 @@ const navItems: NavItem[] = [
     label: "Impact Analytics",
     description: "SDG 12 & SDG 2 metrics",
     icon: BarChart3,
+    roles: ["ADMIN", "CAFETERIA_MANAGER", "EVENT_MANAGER", "RECIPIENT_ORGANIZATION"],
+    section: "insights",
+  },
+  {
+    id: "slides",
+    label: "Presentation Deck",
+    description: "Interactive 16-slide deck",
+    icon: Presentation,
     roles: ["ADMIN", "CAFETERIA_MANAGER", "EVENT_MANAGER", "RECIPIENT_ORGANIZATION"],
     section: "insights",
   },

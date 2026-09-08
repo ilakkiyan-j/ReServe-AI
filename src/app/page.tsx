@@ -29,6 +29,8 @@ import {
 } from "lucide-react";
 import { SustainabilityMetrics } from "@/lib/ai/impactAgent";
 
+import { SlideDeckViewer } from "@/components/presentation/SlideDeckViewer";
+
 // ─── Skeleton helpers ────────────────────────────────────────────────────────
 const SkeletonCard = () => (
   <div className="glass-panel rounded-xl p-6 border border-slate-200 dark:border-slate-800 animate-pulse">
@@ -189,6 +191,9 @@ export default function HomePage() {
 
           {/* ── IMPACT TAB ──────────────────────────────── */}
           {activeTab === "impact" && <ImpactAnalyticsView />}
+
+          {/* ── SLIDES TAB ──────────────────────────────── */}
+          {activeTab === "slides" && <SlideDeckViewer />}
 
           {/* ── RAG TAB ─────────────────────────────────── */}
           {activeTab === "rag" && (
