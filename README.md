@@ -7,6 +7,7 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-success?style=for-the-badge&logo=vercel)](https://reserve-ai.vercel.app)
 [![Database](https://img.shields.io/badge/Database-Neon%20Postgres-blue?style=for-the-badge&logo=postgresql)](https://neon.tech)
 [![Framework](https://img.shields.io/badge/Framework-Next.js%2014-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+[![Presentation](https://img.shields.io/badge/Presentation-ReServe--AI.pptx-orange?style=for-the-badge&logo=microsoftpowerpoint)](docs/ReServe-AI-Rescue-More-Waste-Less.pptx)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 ---
@@ -28,91 +29,92 @@
 * **Cloud Database**: Neon Postgres (`neondb`)
 * **GitHub Repository**: [https://github.com/ilakkiyan-j/ReServe-AI.git](https://github.com/ilakkiyan-j/ReServe-AI.git)
 
----
+## 📸 Master Presentation Slide Deck (16 Slides)
 
-## 📸 Master Presentation Slide Deck (9 Slides)
+> 📁 **Presentation File**: [`docs/ReServe-AI-Rescue-More-Waste-Less.pptx`](docs/ReServe-AI-Rescue-More-Waste-Less.pptx)  
 
-<details>
-<summary><b>▶️ Click here to expand & view the 9-Slide Presentation Deck</b></summary>
+<details open>
+<summary><b>▶️ Click here to expand / collapse the 16-Slide Presentation Deck</b></summary>
 
 <br>
 
-### 🎴 SLIDE 1: Title & Project Overview
-* **Project Title**: ReServe AI — Rescue More. Waste Less.
-* **Subtitle**: AI-Powered Campus Food Surplus Prevention & Intelligent Redistribution System
-* **Primary Focus**: UN Sustainable Development Goal 12 (Responsible Consumption & Production)
-* **Program**: 1M1B – IBM SkillsBuild AI + Sustainability Virtual Internship (July–Sep 2026)
+### 🎴 Slide 1: Title & Project Overview
+![Slide 1: Title & Project Overview](docs/slides/Slide1.JPG)
 
 ---
 
-### 🎴 SLIDE 2: Student & Institutional Metadata
-* **Student Name**: Ilakkiyan J
-* **College / University**: Karpagam College of Engineering
-* **Degree & Branch**: Computer Science & Design
-* **Mentor Name**: Manasa
-* **Program**: 1M1B – IBM SkillsBuild AI + Sustainability Virtual Internship
+### 🎴 Slide 2: The Problem — Campus Food Waste at Scale
+![Slide 2: The Problem](docs/slides/Slide2.JPG)
 
 ---
 
-### 🎴 SLIDE 3: Problem Statement & SDG Alignment
-* **Formulated Question**: *"How might we use AI to predict cafeteria demand and match surplus event food with verified local rescue organizations so that campus food redistribution can become more sustainable, transparent, and efficient?"*
-* **Primary Goal**: **SDG 12 (Responsible Consumption & Production)** — Target 12.3: Halve food waste by 2030.
-* **Secondary Goals**: **SDG 2 (Zero Hunger)** & **SDG 11 (Sustainable Cities)**.
+### 🎴 Slide 3: Central Question & Design Thinking Framework
+![Slide 3: Central Question](docs/slides/Slide3.JPG)
 
 ---
 
-### 🎴 SLIDE 4: AI Solution Overview (PREVENT & RESCUE Modes)
-* 🛡️ **PREVENT Mode**: Statistical demand prediction (`demandPredictionAgent.ts`) + 5% Safety Buffer prep recommendation algorithm.
-* 🚚 **RESCUE Mode**: Natural language surplus text intake (`surplusExtractorAgent.ts`) + Multi-Criteria Recipient Matching (`matchingAgent.ts`).
-* 💬 **RAG Assistant**: Grounded FDA Food Code safety Q&A agent (`ragAssistantAgent.ts`).
+### 🎴 Slide 4: UN Sustainable Development Goals Alignment
+![Slide 4: UN Sustainable Development Goals](docs/slides/Slide4.JPG)
 
 ---
 
-### 🎴 SLIDE 5: 5-Stage Design Thinking Framework
-```
-1. EMPATHIZE : Campus dining halls over-prepare by 15-25%; leftovers discarded.
-2. DEFINE    : Lack of accurate demand prediction & real-time recipient channels.
-3. IDEATE    : Dual-mode AI platform (Preventive statistical + Rescue matching).
-4. PROTOTYPE : 6 Decoupled AI agents built in Next.js 14, TypeScript & Prisma.
-5. TEST      : Validated against simulated campus demand & event intake.
-```
+### 🎴 Slide 5: The Solution — Dual-Mode AI Platform
+![Slide 5: Dual-Mode AI Solution](docs/slides/Slide5.JPG)
 
 ---
 
-### 🎴 SLIDE 6: AI System Architecture & Workflows
-```
-  Cafeteria Data --------> [Demand Prediction Agent] ------> 5% Buffer Prep Recommendation
-                                                                    |
-  Event Text Input -------> [NLP Surplus Extractor] -------> Structured Surplus Record
-                                                                    |
-  Surplus Record ---------> [Multi-Criteria Matcher] ------> Top Verified NGO Candidates
-                                                                    |
-  NGO Acceptance ---------> [Coordination State Machine] -> Real-time Pickup Tracking
-                                                                    |
-  Completed Pickup -------> [Impact Analytics Agent] ------> Live SDG 12 Metrics
-```
+### 🎴 Slide 6: PREVENT Mode — Demand Forecasting Engine
+![Slide 6: PREVENT Mode](docs/slides/Slide6.JPG)
 
 ---
 
-### 🎴 SLIDE 7: Responsible AI & Ethical Framework
-* **Fairness**: Objective 4-factor scoring matrix eliminates bias.
-* **Transparency**: Human-readable 0–100 score breakdowns explaining exact match rationales.
-* **Ethics**: Operates exclusively on verified organizations (`verificationStatus === "VERIFIED"`). Zero hallucinated entities.
-* **Privacy & Security**: Role-based access control (RBAC) via cryptographically signed HttpOnly JWT cookies.
+### 🎴 Slide 7: RESCUE Mode — Intelligent NLP & NGO Matching Engine
+![Slide 7: RESCUE Mode](docs/slides/Slide7.JPG)
 
 ---
 
-### 🎴 SLIDE 8: Expected Sustainability Impact & Benefits
-* 🍲 **15,000+ Nutritious Meals Rescued** annually per university campus.
-* 🌿 **6.2+ Metric Tons of CO2 Emissions Avoided** from landfill reduction ($2.50\text{ kg CO}_2 / \text{kg food}$).
-* 💵 **$15,000+ Saved** in campus municipal waste hauling & disposal fees.
-* 📉 **18% Reduction** in cafeteria over-preparation waste.
+### 🎴 Slide 8: Decoupled AI Agent Architecture
+![Slide 8: AI Architecture & Agents](docs/slides/Slide8.JPG)
 
 ---
 
-### 🎴 SLIDE 9: Conclusion & Future Outlook
-* **Key Takeaway**: ReServe AI transforms campus dining from a linear waste stream into a circular, sustainable ecosystem.
-* **Scalability**: A proven blueprint for universities, smart cities, and regional food banks.
+### 🎴 Slide 9: Mathematical Formulas & Matching Matrix
+![Slide 9: Demand Prediction & Matching Formulas](docs/slides/Slide9.JPG)
+
+---
+
+### 🎴 Slide 10: Technical Implementation & Stack
+![Slide 10: Technical Stack](docs/slides/Slide10.JPG)
+
+---
+
+### 🎴 Slide 11: End-to-End System Data Flow
+![Slide 11: System Data Flow](docs/slides/Slide11.JPG)
+
+---
+
+### 🎴 Slide 12: IBM Responsible AI & Ethical Framework
+![Slide 12: Responsible AI Evaluation](docs/slides/Slide12.JPG)
+
+---
+
+### 🎴 Slide 13: Expected Sustainability Impact Metrics
+![Slide 13: Expected Impact](docs/slides/Slide13.JPG)
+
+---
+
+### 🎴 Slide 14: Stakeholder Benefits Matrix
+![Slide 14: Stakeholder Benefits](docs/slides/Slide14.JPG)
+
+---
+
+### 🎴 Slide 15: Conclusion & Circular Campus Ecosystem
+![Slide 15: Conclusion & Future Outlook](docs/slides/Slide15.JPG)
+
+---
+
+### 🎴 Slide 16: Thank You & Contact Information
+![Slide 16: Thank You](docs/slides/Slide16.JPG)
 
 </details>
 
@@ -127,7 +129,7 @@ This repository contains complete documentation and deliverables for the **1M1B 
 | **Deliverable 1** | Project Description, SDG Alignment, Problem Statement & Target Users | [01_project_description.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/01_project_description.md) |
 | **Deliverable 2** | Prototype Architecture, AI Agent Workflows, Prompt & RAG Demos | [02_prototype_and_agent_architecture.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/02_prototype_and_agent_architecture.md) |
 | **Deliverable 3** | Sustainability Impact Statement & Responsible AI Audit | [03_impact_statement_and_responsible_ai.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/03_impact_statement_and_responsible_ai.md) |
-| **Deliverable 4** | Master PPT / PDF Presentation Submission Package | [04_final_submission_package.md](file:///d:/Projects/1-active/ReServe%20AI/docs/deliverables/04_final_submission_package.md) |
+| **Deliverable 4** | Master Presentation Deck (.pptx & Markdown Package) | [04_final_submission_package.md](docs/deliverables/04_final_submission_package.md) & [ReServe-AI-Rescue-More-Waste-Less.pptx](docs/ReServe-AI-Rescue-More-Waste-Less.pptx) |
 
 ---
 
